@@ -46,4 +46,9 @@ class ShortUrlTest < ActiveSupport::TestCase
     generated_slug = ShortUrl.new(long_url: 'https://www.nba.com/celtics/')
     assert_not generated_slug.slug.nil?
   end
+
+  test 'initializes with generated secret' do
+    short_url = ShortUrl.new(long_url: 'https://www.nba.com/celtics/')
+    assert_not short_url.secret.nil?
+  end
 end

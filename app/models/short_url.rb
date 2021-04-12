@@ -22,6 +22,10 @@ class ShortUrl < ApplicationRecord
 
   # make sure a new instance always has a slug before we try to save it
   after_initialize do |short_url|
+    if short_url.secret.nil?
+      short_url.secret = ShortUrl.generate_secret
+    end
+
     if short_url.slug.nil?
       short_url.slug = ShortUrl.generate_slug
     end
@@ -43,5 +47,20 @@ class ShortUrl < ApplicationRecord
 
       # ruby implicit return looks nice
       new_slug
+    end
+
+    # generate a new, random secret as key for deletion
+    def self.generate_secret
+      new_secret = SecureRandom.urlsafe_base64
+
+      existing_secrets = ShortUrl.pluck :secret
+
+      # see if new slug already exists
+      until !existing_secrets.include? new_secret
+        # regenerate it if it does
+        new_secret = SecureRandom.urlsafe_base64 8
+      end
+
+      new_secret
     end
 end
