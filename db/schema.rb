@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2021_04_10_015828) do
     t.string "slug", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "secret", null: false
     t.index ["slug"], name: "index_short_urls_on_slug", unique: true
   end
 
