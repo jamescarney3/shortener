@@ -25,12 +25,12 @@ Migrate database by running `rails db:migrate`
 - single model that corresponds to a table of matches between fully qualified URLs and slugs
 - slugs can't collide, long urls can
 - short url records also need a secret key attribute to check during deletion requests so that only clients with knowledge of the secret key can trigger a deletion
--
+
 ### Controller Layer
 - two controllers, one for redirects and one for short url administration
 - redirection controller processes slugs, matches them to records and redirects if valid
 - short urls resource controller has typical CRUD pattern with only create and destroy methods
--
+
 ### View Layer
 - there's not enough modeling or serialization going on in this demo application to justify a true view layer; Rails' built-in JSON parsing is sufficient for our single controller
 
